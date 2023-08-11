@@ -1,0 +1,508 @@
+fileFormatVersion: 2
+guid: 5506f2fa34a04b84c96b53904b68a3e2
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tiles Level 1 floor_5
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 384
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8ec98c3de444e74b8600696c6ebe5f6
+      internalID: -1144400796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Level 1 floor_6
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a7222b55092220419e71cdd588258ef
+      internalID: 1972634595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Level 1 floor_7
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 384
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6c47a73fa351e144955803158cd041b
+      internalID: -901626003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Level 1 floor_16
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 368
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d19def7c4c06d184eaac016591f8df29
+      internalID: -1226547886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Level 1 floor_17
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 368
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e224c77fda3458f45a7e02f58bc9c46a
+      internalID: 23378538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Level 1 floor_18
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 368
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20c2dffc3a1dac14e963e0cc26ef4827
+      internalID: -1136777507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Level 1 floor_20
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 368
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67d97640b7f851d44828a2a97fae985c
+      internalID: -362723466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Level 1 floor_25
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 352
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b105e77fa325a64f8fa36776b7afafa
+      internalID: -1562227710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Level 1 floor_26
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 352
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfc5f5729a25a5f4a91051a365c3d53f
+      internalID: 1283977972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Level 1 floor_27
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 352
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c88b13e46f5030c41afba156bce5444e
+      internalID: -316229076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Level 1 floor_33
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 336
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4bc327b1381b284bb20076849234faa
+      internalID: -1818122008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Level 1 floor_34
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 336
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3192772a2ab4a842aca4be9aaa359ec
+      internalID: -425610597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Level 1 floor_35
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 336
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0890c54f38eebd14993812139b49eb24
+      internalID: -233035105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Level 1 floor_36
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 336
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3e46f143f940324d932d2536709da1d
+      internalID: -1370634400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Tiles Level 1 floor_0: 1046487305
+      Tiles Level 1 floor_1: 823255907
+      Tiles Level 1 floor_10: -737215035
+      Tiles Level 1 floor_11: -963285434
+      Tiles Level 1 floor_12: -472719500
+      Tiles Level 1 floor_13: 1483861862
+      Tiles Level 1 floor_14: -386206150
+      Tiles Level 1 floor_15: 267550401
+      Tiles Level 1 floor_16: -1226547886
+      Tiles Level 1 floor_17: 23378538
+      Tiles Level 1 floor_18: -1136777507
+      Tiles Level 1 floor_19: 2048722107
+      Tiles Level 1 floor_2: -1253253020
+      Tiles Level 1 floor_20: -362723466
+      Tiles Level 1 floor_21: 1199723152
+      Tiles Level 1 floor_22: -1239720525
+      Tiles Level 1 floor_23: -1978095998
+      Tiles Level 1 floor_24: 1683359345
+      Tiles Level 1 floor_25: -1562227710
+      Tiles Level 1 floor_26: 1283977972
+      Tiles Level 1 floor_27: -316229076
+      Tiles Level 1 floor_28: 204335168
+      Tiles Level 1 floor_29: -50471254
+      Tiles Level 1 floor_3: 613931919
+      Tiles Level 1 floor_30: 210511503
+      Tiles Level 1 floor_31: -1265748764
+      Tiles Level 1 floor_32: -1037480619
+      Tiles Level 1 floor_33: -1818122008
+      Tiles Level 1 floor_34: -425610597
+      Tiles Level 1 floor_35: -233035105
+      Tiles Level 1 floor_36: -1370634400
+      Tiles Level 1 floor_37: 1838722102
+      Tiles Level 1 floor_38: 728803709
+      Tiles Level 1 floor_39: 646616598
+      Tiles Level 1 floor_4: 723977298
+      Tiles Level 1 floor_40: -100033412
+      Tiles Level 1 floor_41: 1985662769
+      Tiles Level 1 floor_42: -1504570045
+      Tiles Level 1 floor_43: 1020078192
+      Tiles Level 1 floor_44: 2045670470
+      Tiles Level 1 floor_45: -920481294
+      Tiles Level 1 floor_46: 762872113
+      Tiles Level 1 floor_47: 1057425417
+      Tiles Level 1 floor_48: -1198065490
+      Tiles Level 1 floor_49: -737169915
+      Tiles Level 1 floor_5: -1144400796
+      Tiles Level 1 floor_50: -868723083
+      Tiles Level 1 floor_51: -439272172
+      Tiles Level 1 floor_52: 1831233495
+      Tiles Level 1 floor_53: -1800724580
+      Tiles Level 1 floor_54: 1015367210
+      Tiles Level 1 floor_55: -1746980629
+      Tiles Level 1 floor_56: -696667920
+      Tiles Level 1 floor_57: 2090959044
+      Tiles Level 1 floor_58: -1992853473
+      Tiles Level 1 floor_59: 2004830180
+      Tiles Level 1 floor_6: 1972634595
+      Tiles Level 1 floor_60: 1412308530
+      Tiles Level 1 floor_61: -360271144
+      Tiles Level 1 floor_62: -1221358005
+      Tiles Level 1 floor_63: -1215499080
+      Tiles Level 1 floor_64: -106911216
+      Tiles Level 1 floor_65: 1275146214
+      Tiles Level 1 floor_66: -1218066261
+      Tiles Level 1 floor_67: 1950487693
+      Tiles Level 1 floor_68: 1928644889
+      Tiles Level 1 floor_69: -294704130
+      Tiles Level 1 floor_7: -901626003
+      Tiles Level 1 floor_70: -1424782276
+      Tiles Level 1 floor_71: -2113093847
+      Tiles Level 1 floor_72: 1946940880
+      Tiles Level 1 floor_73: -1213607806
+      Tiles Level 1 floor_8: 93258344
+      Tiles Level 1 floor_9: 1525568708
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
