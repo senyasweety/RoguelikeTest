@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Tools
+namespace DefaultNamespace.Tools
 {
     public static class ConsoleTools
     {

@@ -1,20 +1,13 @@
-using System;
-using UnityEditor;
+using DefaultNamespace.Tools;
 using UnityEngine;
-using Assets.Scripts.SoundSystem;
 
 namespace DefaultNamespace
 {
     public class Test : MonoBehaviour
     {
-        [SerializeField] private SoundComponent _sound;
-
-        private SoundComponent _component;
-        
         private void Start()
         {
-            
+            Debug.Log("yes");
         }
     }
-
 }
