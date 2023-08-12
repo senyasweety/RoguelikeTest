@@ -10,10 +10,7 @@ EditorBuildSettings:
     guid: 2d0578845c2d61640908f29031b0828c
   - enabled: 1
     path: Assets/Scenes/Menu.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/TestFightScene.unity
-    guid: c33f4b7d7d6a3ab4db63c787e9e6e19f
+    guid: 9d5b00c07879a43469af420cb695e9ad
   - enabled: 1
     path: Assets/Scenes/LevelGeneration.unity
     guid: e0945ba8c08f580489b958e3d8d72f67

@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using Assets.Enemy;
+using Assets.Interface;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,8 +46,8 @@ namespace Assets.Scripts.InteractiveObjectSystem.CanvasInfoSystem
             _attactElementImage.gameObject.SetActive(false);
             _defendElementImage.gameObject.SetActive(false);
 
-            if (interactiveObject.TryGetComponent(out IEnemyObjectData enemyObject))
-                ShowEnemyPanel(enemyObject);
+            if (interactiveObject.TryGetComponent(out EnemyPresenter enemyPresenter))
+                ShowEnemyPanel(enemyPresenter);
             else if (interactiveObject.TryGetComponent(out InteractiveLootObject lootObject))
                 ShowRandomEventPanel(lootObject);
             else if (interactiveObject.TryGetComponent(out InteractiveRandomEventObject randomEventObject))
@@ -70,24 +72,26 @@ namespace Assets.Scripts.InteractiveObjectSystem.CanvasInfoSystem
             // _fullInfo.gameObject.SetActive(true);
         }
 
-        private void ShowEnemyPanel(IEnemyObjectData enemyObject)
+        private void ShowEnemyPanel(EnemyPresenter enemyPresenter)
         {
-            if (enemyObject.Enemy.Select(x => x.IsBoss).FirstOrDefault())
+            _lable.text = null;
+            
+            if (enemyPresenter.Enemy.Select(x => x.IsBoss).FirstOrDefault())
                 _lable.text = "BOSS: ";
 
-            _lable.text += enemyObject.Name;
-            _damageInfo.text = DamageInfo + enemyObject.Enemy.Select(x => x.Weapon).FirstOrDefault().Damage;
+            _lable.text += enemyPresenter.EnemyView.Name;
+            _damageInfo.text = DamageInfo + enemyPresenter.Enemy.Select(x => x.Weapon).FirstOrDefault().Damage;
             
-            int armorValue = (int)enemyObject.Enemy.Select(x => x.Armor).FirstOrDefault().Body.Value + (int)enemyObject.Enemy.Select(x => x.Armor).FirstOrDefault().Body.Value; 
+            int armorValue = (int)enemyPresenter.Enemy.Select(x => x.Armor).FirstOrDefault().Body.Value + (int)enemyPresenter.Enemy.Select(x => x.Armor).FirstOrDefault().Body.Value; 
 
             _armorInfo.text = ArmorInfo + armorValue;
-            _countInfo.text = CountInfo + enemyObject.Enemy.Count;
+            _countInfo.text = CountInfo + enemyPresenter.Enemy.Count;
             
             _attactElementImage.gameObject.SetActive(true);
             _defendElementImage.gameObject.SetActive(true);
 
-            _attactElementImage.sprite = _elementsSprite.GetElementSprite(enemyObject.Enemy.Select(x => x.Weapon.Element).FirstOrDefault());
-            _defendElementImage.sprite = _elementsSprite.GetElementSprite(enemyObject.Enemy.Select(x => x.Armor.Body.Element).FirstOrDefault());
+            _attactElementImage.sprite = _elementsSprite.GetElementSprite(enemyPresenter.Enemy.Select(x => x.Weapon.Element).FirstOrDefault());
+            _defendElementImage.sprite = _elementsSprite.GetElementSprite(enemyPresenter.Enemy.Select(x => x.Armor.Body.Element).FirstOrDefault());
         }
 
         #region ShowPanel

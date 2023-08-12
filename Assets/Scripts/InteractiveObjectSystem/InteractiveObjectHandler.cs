@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using Assets.Enemy;
 using Assets.Fight;
 using Assets.Loot;
+using Assets.Person;
 using Assets.Player;
 using Assets.Scripts.GenerationSystem.LevelMovement;
 using Assets.Scripts.InteractiveObjectSystem.RandomEventSystem;
@@ -40,10 +42,11 @@ namespace Assets.Scripts.InteractiveObjectSystem
 
             Action openPanel = () => { };
 
-            Player.Player player = FindObjectOfType<PlayerPresenter>().Player;
+            PlayerPresenter playerPresenter = FindObjectOfType<PlayerView>().GetComponent<PlayerPresenter>();
             
-            if (targetObject.TryGetComponent(out IEnemyObjectData enemyObject))
-                openPanel = () => { Curtain.Instance.ShowAnimation(() => { _battlefild.SetActiveFightPlace(player, enemyObject.Enemy.ToArray()); }); };
+            if (targetObject.TryGetComponent(out EnemyView enemyView))
+                openPanel = () => { Curtain.Instance.ShowAnimation(() => { _battlefild.SetActiveFightPlace
+                    (playerPresenter, enemyView.GetComponent<EnemyPresenter>()); }); };
             else if (targetObject.TryGetComponent(out InteractiveLootObject lootObject))
                 openPanel = () => { _lootPanel.ShowPanel(this); };
             else if (targetObject.TryGetComponent(out InteractiveRandomEventObject randomEventObject))

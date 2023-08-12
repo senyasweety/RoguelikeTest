@@ -42,7 +42,7 @@ namespace Assets
                     enemies.Add(enemy);
             }
 
-            _uiFight.SetActiveFightPlace(_player, enemies.ToArray());
+            // _uiFight.SetActiveFightPlace(_player, enemies.ToArray());
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Assets.Enemy;
 using Assets.Fight.Dice;
 using Assets.Interface;
 using Assets.Person;
@@ -25,68 +26,75 @@ namespace Assets.Fight
         private const int TwoEnemy = 2;
         private const int ThreeEnemy = 3;
         private const int Boss = 4;
-        
-        public void Set(Player.Player player, List<Enemy.Enemy> _enemies)
+
+        public void Set(PlayerPresenter player, EnemyPresenter enemies)
         {
             #region MyRegion
 
-            switch (_enemies.Count)
+            switch (enemies.Enemy.Count)
             {
                 case Enemy:
                     DisableAllEnemyUI();
 
-                    if (CheckOnTheBoss(_enemies[Enemy - 1], _enemies))
+                    if (CheckOnTheBoss(enemies.Enemy[Enemy - 1]))
                         break;
 
-                    ShowEnemyUI(_spawnPoints[Enemy - 1], _enemies);
+                    ShowEnemyUI(_spawnPoints[Enemy - 1]);
                     break;
                 case TwoEnemy:
                     DisableAllEnemyUI();
-                    ShowEnemyUI(_spawnPoints[TwoEnemy - 1], _enemies);
+                    ShowEnemyUI(_spawnPoints[TwoEnemy - 1]);
                     break;
                 case ThreeEnemy:
                     DisableAllEnemyUI();
-                    ShowEnemyUI(_spawnPoints[ThreeEnemy - 1], _enemies);
+                    ShowEnemyUI(_spawnPoints[ThreeEnemy - 1]);
                     break;
             }
 
-            DiceSpriteScriptableObject scriptableObject = Resources.Load<DiceSpriteScriptableObject>("BlackDiceSpriteScriptableObject");
+            DiceSpriteScriptableObject scriptableObject =
+                Resources.Load<DiceSpriteScriptableObject>("BlackDiceSpriteScriptableObject");
 
-            DicePresenter leftDicePresenter = new DicePresenter(_leftDice, new DiceModel(scriptableObject.Sprites), this);
-            DicePresenter centerDicePresenter = new DicePresenter(_centerDice, new DiceModel(scriptableObject.Sprites), this);
-            DicePresenter rightDicePresenter = new DicePresenter(_rightDice, new DiceModel(scriptableObject.Sprites), this);
+            DicePresenter leftDicePresenter =
+                new DicePresenter(_leftDice, new DiceModel(scriptableObject.Sprites), this);
+            DicePresenter centerDicePresenter =
+                new DicePresenter(_centerDice, new DiceModel(scriptableObject.Sprites), this);
+            DicePresenter rightDicePresenter =
+                new DicePresenter(_rightDice, new DiceModel(scriptableObject.Sprites), this);
 
-            _fight = new Fight(this, _enemies, player, _stepFightView, new DicePresenterAdapter(leftDicePresenter, centerDicePresenter, rightDicePresenter));
+            // _fight = new Fight(this, enemies, player, _stepFightView,
+            //     new DicePresenterAdapter(leftDicePresenter, centerDicePresenter, rightDicePresenter));
 
             _fight.Start();
 
             #endregion
-
         }
 
         private void OnDisable() =>
             _fight.Dispose();
 
-        private bool CheckOnTheBoss(Enemy.Enemy enemy, List<Enemy.Enemy> enemies)
+        private bool CheckOnTheBoss(Enemy.Enemy enemy)
         {
             if (enemy.IsBoss)
             {
-                ShowEnemyUI(_spawnPoints[Boss - 1], enemies);
+                ShowEnemyUI(_spawnPoints[Boss - 1]);
                 return true;
             }
 
             return false;
         }
 
-        private void ShowEnemyUI(EnemyPoint spawnPoint, List<Enemy.Enemy>enemies)
-        {
+        private void ShowEnemyUI(EnemyPoint spawnPoint) => 
             spawnPoint.gameObject.SetActive(true);
-        }
 
         private void DisableAllEnemyUI()
         {
             foreach (SpawnPoint spawnPoint in _spawnPoints)
                 spawnPoint.gameObject.SetActive(false);
+        }
+
+        public void Set()
+        {
+            throw new NotImplementedException();
         }
     }
 }
