@@ -15,16 +15,16 @@ namespace Assets.Fight
         [SerializeField] private Transform _battlefieldMap;
         [SerializeField] private FightPlace _fightPlace;
 
-        private PlayerPresenter _playerPresenter;
-        private EnemyPresenter _enemyPresenter;
+        private IPlayerPresenter _playerPresenter;
+        private IEnemyPresenter _enemyPresenter;
 
-        public void SetActiveFightPlace(PlayerPresenter playerPresenter, EnemyPresenter enemyPresenter)
+        public void SetActiveFightPlace(IPlayerPresenter playerPresenter, IEnemyPresenter enemyPresenter)
         {
             _enemyPresenter = enemyPresenter;
             _playerPresenter = playerPresenter;
             
             _battlefieldMap.gameObject.SetActive(true);
-            _globalMap.gameObject.SetActive(true);
+            _globalMap.gameObject.SetActive(false);
 
             _fightPlace.Set(_playerPresenter, _enemyPresenter);
         }

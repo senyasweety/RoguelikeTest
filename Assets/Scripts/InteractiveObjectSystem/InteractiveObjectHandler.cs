@@ -42,11 +42,11 @@ namespace Assets.Scripts.InteractiveObjectSystem
 
             Action openPanel = () => { };
 
-            PlayerPresenter playerPresenter = FindObjectOfType<PlayerView>().GetComponent<PlayerPresenter>();
+            IPlayerPresenter playerPresenter = FindObjectOfType<PlayerView>().PlayerPresenter;
             
             if (targetObject.TryGetComponent(out EnemyView enemyView))
-                openPanel = () => { Curtain.Instance.ShowAnimation(() => { _battlefild.SetActiveFightPlace
-                    (playerPresenter, enemyView.GetComponent<EnemyPresenter>()); }); };
+                openPanel = () => { Curtain.Instance.ShowAnimation(() => 
+                    { _battlefild.SetActiveFightPlace(playerPresenter, enemyView.EnemyPresenter); }); };
             else if (targetObject.TryGetComponent(out InteractiveLootObject lootObject))
                 openPanel = () => { _lootPanel.ShowPanel(this); };
             else if (targetObject.TryGetComponent(out InteractiveRandomEventObject randomEventObject))

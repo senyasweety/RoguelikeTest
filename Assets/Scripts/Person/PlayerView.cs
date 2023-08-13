@@ -1,3 +1,5 @@
+using System;
+using Assets.Player;
 using Assets.ScriptableObjects;
 using Assets.Scripts.AnimationComponent;
 using Assets.Scripts.InteractiveObjectSystem;
@@ -12,6 +14,13 @@ namespace Assets.Person
         [SerializeField] private WeaponScriptableObject _weaponScriptableObject;
         [SerializeField] private SpriteAnimation _spriteAnimation;
         [SerializeField] private Sprite _sprite;
+        
+        private PlayerPresenter _playerPresenter;
+
+        private void Start() => 
+            _playerPresenter = new PlayerPresenter(this);
+
+        public IPlayerPresenter PlayerPresenter => _playerPresenter;
 
         public int Health => _health;
 

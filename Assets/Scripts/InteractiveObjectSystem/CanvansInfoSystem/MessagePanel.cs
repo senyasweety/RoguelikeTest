@@ -46,8 +46,8 @@ namespace Assets.Scripts.InteractiveObjectSystem.CanvasInfoSystem
             _attactElementImage.gameObject.SetActive(false);
             _defendElementImage.gameObject.SetActive(false);
 
-            if (interactiveObject.TryGetComponent(out EnemyPresenter enemyPresenter))
-                ShowEnemyPanel(enemyPresenter);
+            if (interactiveObject.TryGetComponent(out EnemyView enemyView))
+                ShowEnemyPanel(enemyView.EnemyPresenter);
             else if (interactiveObject.TryGetComponent(out InteractiveLootObject lootObject))
                 ShowRandomEventPanel(lootObject);
             else if (interactiveObject.TryGetComponent(out InteractiveRandomEventObject randomEventObject))
@@ -72,7 +72,7 @@ namespace Assets.Scripts.InteractiveObjectSystem.CanvasInfoSystem
             // _fullInfo.gameObject.SetActive(true);
         }
 
-        private void ShowEnemyPanel(EnemyPresenter enemyPresenter)
+        private void ShowEnemyPanel(IEnemyPresenter enemyPresenter)
         {
             _lable.text = null;
             

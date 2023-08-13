@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Assets.Person;
 using UnityEngine;
 
 namespace Assets.Scripts.AnimationComponent
@@ -16,7 +18,6 @@ namespace Assets.Scripts.AnimationComponent
         private int _currentFrame;
         private int _currentClip;
         private bool _isPlaying = true;
-
         private void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Enemy
 {
-    public class EnemyPresenter
+    public class EnemyPresenter : IEnemyPresenter
     {
         private readonly EnemyView _enemyView;
 
@@ -22,7 +22,7 @@ namespace Assets.Enemy
         }
 
         public EnemyView EnemyView => _enemyView;
-        public List<Enemy> Enemy => _enemy;
+        public IReadOnlyList<Enemy> Enemy => _enemy;
 
         private void Start()
         {
@@ -42,7 +42,7 @@ namespace Assets.Enemy
                 if (_enemyView.Type == ObjectType.Boos)
                     enemy.MakeBoss();
 
-                Enemy.Add(enemy);
+                _enemy.Add(enemy);
             }
         }
 
@@ -69,5 +69,15 @@ namespace Assets.Enemy
 
         private int GenerateRandomCountEnemy() =>
             Random.Range(1, 4);
+    }
+
+    public interface IEnemyPresenter : IUnitPresenter
+    {
+        public EnemyView EnemyView { get; }
+        public IReadOnlyList<Enemy> Enemy { get; }
+    }
+
+    public interface IUnitPresenter
+    {
     }
 }
