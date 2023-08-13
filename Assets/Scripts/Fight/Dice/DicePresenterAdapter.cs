@@ -21,7 +21,9 @@ namespace Assets.Fight.Dice
         
         public void SetDisactive()
         {
-            
+            _leftDice.SetDisactive();
+            _centerDice.SetDisactive();
+            _rightDice.SetDisactive();
         }
 
         public void SetActive()
@@ -38,6 +40,13 @@ namespace Assets.Fight.Dice
             _rightDice?.Dispose();
         }
 
+        public void RestartShuffelValue()
+        {
+            _leftDice.WasShuffeled = false;
+            _centerDice.WasShuffeled = false;
+            _rightDice.WasShuffeled = false;
+        }
+        
         public bool CheckOnDicesShuffeled() =>
             _leftDice.WasShuffeled && _centerDice.WasShuffeled && _rightDice.WasShuffeled;
     }

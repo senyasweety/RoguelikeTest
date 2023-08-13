@@ -72,7 +72,6 @@ namespace Assets.Fight.Dice
 
             while (step > 0)
             {
-                // TODO Add Shuffle method for List
                 foreach (Sprite sprite in _diceModel.Sprites)
                 {
 
