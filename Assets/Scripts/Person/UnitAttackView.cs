@@ -17,11 +17,11 @@ namespace Assets.Person
         private float _secPerFrame;
         private float _nextFrameTime;
         private int _currentFrame;
-        private int _currentClip;
         private bool _isPlaying = true;
 
         private Sprite[] _sprites;
         private bool _isLoop;
+        private Clip _currentClip;
 
 
         private void Awake() =>
@@ -37,20 +37,21 @@ namespace Assets.Person
 
         private void Update()
         {
+            if (_currentClip == null)
+                return;
+
             if (_nextFrameTime > Time.time)
                 return;
 
-            Clip clip = _clips[_currentClip];
-
-            if (_currentFrame >= clip.Sprites.Length)
+            if (_currentFrame >= _currentClip.Sprites.Length)
             {
-                if (clip.IsLoop)
+                if (_currentClip.IsLoop)
                 {
                     _currentFrame = 0;
                 }
-                else if (clip.IsAllowNextClip)
+                else if (_currentClip.IsAllowNextClip)
                 {
-                    SetClip(clip.NextState);
+                    SetClip(_currentClip.NextState);
                 }
                 else
                 {
@@ -61,7 +62,7 @@ namespace Assets.Person
             }
             else
             {
-                _renderer.sprite = clip.Sprites[_currentFrame];
+                _renderer.sprite = _currentClip.Sprites[_currentFrame];
 
                 _nextFrameTime += _secPerFrame;
                 _currentFrame++;
@@ -74,14 +75,11 @@ namespace Assets.Person
             {
                 if (_clips[i].State == state)
                 {
-                    _currentClip = i;
+                    _currentClip = _clips[i];
                     StartAnimation();
                     return;
                 }
             }
-
-            // enabled = false;
-            // _isPlaying = false;
         }
 
         private void StartAnimation()

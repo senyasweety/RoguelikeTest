@@ -131,14 +131,14 @@ MonoBehaviour:
     - {fileID: -149045789, guid: a5520b2b2cca83c4ca384a1e4822fd58, type: 3}
     - {fileID: -221599312, guid: a5520b2b2cca83c4ca384a1e4822fd58, type: 3}
     _isLoop: 0
-    _isAllowNextClip: 1
+    _isAllowNextClip: 0
     _nextState: 1
   - _state: 3
     _sprites:
     - {fileID: 741838678, guid: 109583ed816e6b541ad10d3954a1b849, type: 3}
     - {fileID: -865633853, guid: 109583ed816e6b541ad10d3954a1b849, type: 3}
     _isLoop: 0
-    _isAllowNextClip: 1
+    _isAllowNextClip: 0
     _nextState: 1
   - _state: 4
     _sprites:
@@ -211,7 +211,7 @@ MonoBehaviour:
   _type: 0
   _name: "\u0431\u043E\u0442"
   _data: "\u0443\u043C\u043D\u044B\u0439 \u0431\u043E\u0442"
-  _health: 100
+  _health: 500
   _weapon: {fileID: 11400000, guid: db8b9bd7c8744bd408821cdcea894c34, type: 2}
   _armor: {fileID: 11400000, guid: b4cf26b18b3a7c943ad477b2f476a40a, type: 2}
   _sprite: {fileID: -2054315591, guid: 55cd93eaa03fc404d9ba81dac0f8d658, type: 3}

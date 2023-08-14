@@ -6,7 +6,6 @@ using Assets.Fight.Dice;
 using Assets.Interface;
 using Assets.Person;
 using UnityEngine;
-using AnimationClip = Assets.Scripts.AnimationComponent.AnimationClip;
 using AnimationState = Assets.Scripts.AnimationComponent.AnimationState;
 using Random = UnityEngine.Random;
 
@@ -74,40 +73,71 @@ namespace Assets.Fight
                     _dicePresenterAdapter.SetActive();
                     yield return waitUntil;
                     _dicePresenterAdapter.RestartShuffelValue();
+
+                    Debug.Log("Ходит игрок жизни врагов = ");
+                    int i = 1;
+                    foreach (UnitAttackPresenter unit in _enemyAttackPresenters) 
+                        Debug.Log($"{i} = {unit.Unit.Healh}");
+
+                    bool isSplashAttack = _dicePresenterAdapter.LeftDiceValue == player.Weapon.ChanceToSplash;
+
+                    yield return _coroutineRunner.StartCoroutine(StartSingleAnimationCoroutine(AnimationState.Attack, _playerAttackPresenter));
+                    // _playerAttackPresenter.ShowAnimation(AnimationState.Idle);
                     
-                    Debug.Log("Ходит игрок");
-                    // Получить данные с первого кубика
-                    Debug.Log("данные с первого кубика " + _dicePresenterAdapter.LeftDiceValue);
-                    // Получить данные со второго кубика
-                    Debug.Log("данные с второго кубика " + _dicePresenterAdapter.CenterDiceValue);
-                    // Получить данные с третьего кубика
-                    Debug.Log("данные с третьего кубика " + _dicePresenterAdapter.RightDiceValue);
+                    List<UnitAttackPresenter> allLiveEnemy = _enemyAttackPresenters.Where(x => x.Unit.IsDie == false).ToList();
 
+                    if (isSplashAttack)
+                    {
+                        yield return _coroutineRunner.StartCoroutine(StartMultipleAnimationCoroutine(AnimationState.Hit, allLiveEnemy));
 
-                    // yield return _coroutineRunner.StartCoroutine(
-                    //     StartSingleAnimationCoroutine(AnimationState.Attack, _playerAttackPresenter));
-                    //
-                    // _playerAttackPresenter.ShowAnimation(AnimationState.Idle);
-                    //
-                    // yield return _coroutineRunner.StartCoroutine(
-                    //     StartSingleAnimationCoroutine(AnimationState.Attack, _enemyAttackPresenters[0]));
-                    //
-                    // _playerAttackPresenter.ShowAnimation(AnimationState.Idle);
-                    //
-                    // yield return _coroutineRunner.StartCoroutine(
-                    //     StartSingleAnimationCoroutine(AnimationState.Attack, _playerAttackPresenter));
-                    //
-                    // _playerAttackPresenter.ShowAnimation(AnimationState.Idle);
+                        foreach (UnitAttackPresenter enemy in allLiveEnemy)
+                        { 
+                            enemy.Unit.TakeDamage(player.Weapon);
 
-                    // Нанести урон одному врагу || Нанести урон нескольким врагам
+                            if (enemy.Unit.IsDie)
+                                enemy.ShowAnimation(AnimationState.Dei);
+                            else
+                                enemy.ShowAnimation(AnimationState.Idle);
+                        }
+                    }
+                    else
+                    {
+                        UnitAttackPresenter randomEnemy =  _enemyAttackPresenters[Random.Range(0, allLiveEnemy.Count - 1)];
 
-                    // enemy.TakeDamage(player.Weapon.DamageData);
+                        yield return _coroutineRunner.StartCoroutine(StartSingleAnimationCoroutine(AnimationState.Hit, randomEnemy));
+
+                        randomEnemy.Unit.TakeDamage(player.Weapon);
+
+                        if (randomEnemy.Unit.IsDie)
+                            randomEnemy.ShowAnimation(AnimationState.Dei);
+                        else
+                            randomEnemy.ShowAnimation(AnimationState.Idle);
+                    }
+                    
+                    
+                    Debug.Log("Игрок походил жизни врагов = ");
+                    int j = 1;
+                    foreach (UnitAttackPresenter unit in _enemyAttackPresenters) 
+                        Debug.Log($"{j} = {unit.Unit.Healh}");
                 }
                 else if (unitAttackPresenter.Unit is Enemy.Enemy enemy)
                 {
-                    Debug.Log("Ходит враг");
+                    Debug.Log($"Ходит враг жизни игрока = {_playerAttackPresenter.Unit.Healh}");
                     _dicePresenterAdapter.SetDisactive();
-                    //_player.TakeDamage(enemy.Weapon.DamageData);
+
+                    yield return _coroutineRunner.StartCoroutine(StartSingleAnimationCoroutine(AnimationState.Attack, unitAttackPresenter));
+                    unitAttackPresenter.ShowAnimation(AnimationState.Idle);
+                    
+                    _playerAttackPresenter.Unit.TakeDamage(enemy.Weapon);
+                    
+                    yield return _coroutineRunner.StartCoroutine(StartSingleAnimationCoroutine(AnimationState.Hit, _playerAttackPresenter));
+                    
+                    if (_playerAttackPresenter.Unit.IsDie)
+                        _playerAttackPresenter.ShowAnimation(AnimationState.Dei);
+                    else
+                        _playerAttackPresenter.ShowAnimation(AnimationState.Idle);
+                    
+                    Debug.Log($"Враг походил жизни игрока = {_playerAttackPresenter.Unit.Healh}");
                 }
             }
         }
@@ -116,18 +146,15 @@ namespace Assets.Fight
             UnitAttackPresenter attackPresenter)
         {
             Debug.Log("Старт StartAnimationCoroutine");
-            bool isComplete = false;
 
             attackPresenter.ShowAnimation(animationState);
 
-            attackPresenter.UnitAttackView.OnAnimationComplete += () => isComplete = true;
-
-            while (isComplete == false)
-                yield return null;
-
+            while (attackPresenter.UnitAttackView.IsComplete == false)
+                yield return new WaitUntil(() => attackPresenter.UnitAttackView.IsComplete);
+            // Перейти на WaitUntil ?
             Debug.Log("Конец StartAnimationCoroutine");
         }
-
+        
         private IEnumerator StartMultipleAnimationCoroutine(AnimationState animationState,
             List<UnitAttackPresenter> attackPresenters)
         {

@@ -16,5 +16,5 @@ MonoBehaviour:
   <MinValueToCriticalDamage>k__BackingField: 1
   <ValueModifier>k__BackingField: 1
   <ParticleSystem>k__BackingField: {fileID: 1351889237912816597, guid: 0931c0d473fe8e34fbdcf55a8ced7547, type: 3}
-  <Element>k__BackingField: 0
-  <Damage>k__BackingField: 5
+  <Element>k__BackingField: 3
+  <Damage>k__BackingField: 50
