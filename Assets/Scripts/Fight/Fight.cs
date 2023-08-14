@@ -82,7 +82,7 @@ namespace Assets.Fight
                     bool isSplashAttack = _dicePresenterAdapter.LeftDiceValue == player.Weapon.ChanceToSplash;
 
                     yield return _coroutineRunner.StartCoroutine(StartSingleAnimationCoroutine(AnimationState.Attack, _playerAttackPresenter));
-                    // _playerAttackPresenter.ShowAnimation(AnimationState.Idle);
+                    _playerAttackPresenter.ShowAnimation(AnimationState.Idle);
                     
                     List<UnitAttackPresenter> allLiveEnemy = _enemyAttackPresenters.Where(x => x.Unit.IsDie == false).ToList();
 
@@ -149,7 +149,7 @@ namespace Assets.Fight
 
             attackPresenter.ShowAnimation(animationState);
 
-            while (attackPresenter.UnitAttackView.IsComplete == false)
+            //while (attackPresenter.UnitAttackView.IsComplete == false)
                 yield return new WaitUntil(() => attackPresenter.UnitAttackView.IsComplete);
             // Перейти на WaitUntil ?
             Debug.Log("Конец StartAnimationCoroutine");
@@ -158,13 +158,16 @@ namespace Assets.Fight
         private IEnumerator StartMultipleAnimationCoroutine(AnimationState animationState,
             List<UnitAttackPresenter> attackPresenters)
         {
+            Debug.Log("Старт StartMultipleAnimationCoroutine");
+
             attackPresenters.ForEach(unitAttackPresenter => unitAttackPresenter.ShowAnimation(animationState));
-
-            bool IsCompleteAllAnimations =
-                attackPresenters.All(unitAttackPresenter => unitAttackPresenter.UnitAttackView.IsComplete);
-
-            while (IsCompleteAllAnimations == false)
-                yield return null;
+            
+            //while (attackPresenters.All(unitAttackPresenter => unitAttackPresenter.UnitAttackView.IsComplete))
+                yield return new WaitUntil(
+                    () => attackPresenters.All(unitAttackPresenter => unitAttackPresenter.UnitAttackView.IsComplete)
+                    );
+                    
+            Debug.Log("Конец StartMultipleAnimationCoroutine");
         }
 
         private void GenerateAttackingSteps(List<UnitAttackPresenter> enemyAttackPresenters,
