@@ -20,7 +20,7 @@ namespace Assets.Scripts.InteractiveObjectSystem
         [SerializeField] private float _minDistanceToStartBattle = 10.1f;
         [SerializeField] private Button _closeButton;
         [Space] [SerializeField] private UIFight _battlefild;
-        [SerializeField] private RandomLootView _lootPanel;
+        [SerializeField] private RandomEventView eventPanel;
 
         private InteractiveObject _targetObject;
         private float _distance;
@@ -48,31 +48,9 @@ namespace Assets.Scripts.InteractiveObjectSystem
                 openPanel = () => { Curtain.Instance.ShowAnimation(() => 
                     { _battlefild.SetActiveFightPlace(playerPresenter, enemyView.EnemyPresenter); }); };
             else if (targetObject.TryGetComponent(out InteractiveLootObject lootObject))
-                openPanel = () => { _lootPanel.ShowPanel(this); };
+                openPanel = () => { eventPanel.ShowPanel(this); };
             else if (targetObject.TryGetComponent(out InteractiveRandomEventObject randomEventObject))
                 openPanel = CreateRandomEvent();
-
-            #region Old Switch
-
-            // switch (targetObject.Type)
-            // {
-            //     case ObjectType.Enemy:
-            //         openPanel = () => { Curtain.Instance.ShowAnimation(() => { _battlefild.gameObject.SetActive(true); }); };
-            //         break;
-            //     case ObjectType.RandomEvent:
-            //         openPanel = CreateRandomEvent();
-            //         break;
-            //     case ObjectType.Loot:
-            //         openPanel = () => { _lootPanel.ShowPanel(this); };
-            //         break;
-            //     case ObjectType.Boos:
-            //         openPanel = () => { Curtain.Instance.ShowAnimation(() => { _battlefild.gameObject.SetActive(true); }); };
-            //         break;
-            //     default:
-            //         throw new ArgumentOutOfRangeException();
-            // }
-
-            #endregion
 
             StartCoroutine(GoToTarget(targetPosition, openPanel));
         }
@@ -99,10 +77,10 @@ namespace Assets.Scripts.InteractiveObjectSystem
             {
                 case RandomEventType.Enemy:
                     return () => { Curtain.Instance.ShowAnimation(() => { _battlefild.gameObject.SetActive(true); }); };
-                case RandomEventType.Loot:
-                    return () => { _lootPanel.ShowPanel(this); };
-                case RandomEventType.AD:
-                    return () => { _lootPanel.ShowPanel(this); };
+                // case RandomEventType.Loot:
+                //     return () => { eventPanel.ShowPanel(this); };
+                // case RandomEventType.AD:
+                //     return () => { eventPanel.ShowPanel(this); };
                 default:
                     return () => { _battlefild.gameObject.SetActive(true); };
             }

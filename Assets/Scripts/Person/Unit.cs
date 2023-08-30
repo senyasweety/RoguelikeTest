@@ -16,7 +16,7 @@ namespace Assets.Person
         private Armor _armor;
         private MagicItem _magicItem;
         
-        public Unit(int health, IWeapon weapon, Armor armor, MagicItem magicItem, SpriteAnimation spriteAnimation)
+        public Unit(float health, IWeapon weapon, Armor armor, MagicItem magicItem, SpriteAnimation spriteAnimation)
         {
             _health = health;
             _weapon = weapon;
@@ -24,10 +24,12 @@ namespace Assets.Person
             _magicItem = magicItem;
             SpriteAnimation = spriteAnimation;
             _personStateMachine = new PersonStateMachine();
+            
         }
 
         public event Action<Unit> Died;
-        
+        public event Action<float> HealthChanged;
+
         public SpriteAnimation SpriteAnimation { get; }
         public float Healh => _health;
         public IWeapon Weapon => _weapon;
@@ -56,8 +58,13 @@ namespace Assets.Person
 
         protected virtual void CalculateDamageMultiplier(IWeapon weapon)
         {
+            if (IsDie)
+                return;
+            
             float damageMultiplier = weapon.Damage / (CalculateDamageModifier(weapon.Element) * weapon.Damage + (_armor.Body.Value + _armor.Head.Value));
             _health -= damageMultiplier * weapon.Damage;
+            
+            HealthChanged?.Invoke(_health);
         }
 
         private float CalculateDamageModifier(Element element) =>

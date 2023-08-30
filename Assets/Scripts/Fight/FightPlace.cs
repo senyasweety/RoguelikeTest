@@ -20,7 +20,8 @@ namespace Assets.Fight
         [SerializeField] private DiceView _centerDice;
         [SerializeField] private DiceView _rightDice;
 
-
+        [Space(25)] 
+        [SerializeField] private ElementsDamagePanel _elementsDamagePanel;
         // Места для игрока и врагов на карте битвы
         [SerializeField] private UnitAttackView _playerAttackView;
 
@@ -33,9 +34,50 @@ namespace Assets.Fight
         private const int TwoEnemy = 2;
         private const int ThreeEnemy = 3;
         private const int Boss = 4;
+        
+        private IElementsDamagePanel _IelementsDamagePanel;
+        private RectTransform _playerRectTransform;
+
+        private void OnEnable()
+        {
+            _IelementsDamagePanel = _elementsDamagePanel;
+            _playerRectTransform = _playerPosition.GetComponent<RectTransform>();
+
+            #region Add subscrib event on click panel InfoInLine
+            _IelementsDamagePanel.FireElementInfoLine.InfoInLine.ButtonAttack.onClick.AddListener(_IelementsDamagePanel.HidePanel);
+            _IelementsDamagePanel.MetalElementInfoLine.InfoInLine.ButtonAttack.onClick.AddListener(_IelementsDamagePanel.HidePanel);
+            _IelementsDamagePanel.StoneElementInfoLine.InfoInLine.ButtonAttack.onClick.AddListener(_IelementsDamagePanel.HidePanel);
+            _IelementsDamagePanel.TreeElementInfoLine.InfoInLine.ButtonAttack.onClick.AddListener(_IelementsDamagePanel.HidePanel);
+            _IelementsDamagePanel.WaterElementInfoLine.InfoInLine.ButtonAttack.onClick.AddListener(_IelementsDamagePanel.HidePanel);
+            #endregion
+        }
+
+        private void OnDisable()
+        {
+            _fight.Dispose();
+
+            #region Remove subscrib event on click panel InfoInLine 
+            _IelementsDamagePanel.FireElementInfoLine.InfoInLine.ButtonAttack.onClick.RemoveListener(_IelementsDamagePanel.HidePanel);
+            _IelementsDamagePanel.MetalElementInfoLine.InfoInLine.ButtonAttack.onClick.RemoveListener(_IelementsDamagePanel.HidePanel);
+            _IelementsDamagePanel.StoneElementInfoLine.InfoInLine.ButtonAttack.onClick.RemoveListener(_IelementsDamagePanel.HidePanel);
+            _IelementsDamagePanel.TreeElementInfoLine.InfoInLine.ButtonAttack.onClick.RemoveListener(_IelementsDamagePanel.HidePanel);
+            _IelementsDamagePanel.WaterElementInfoLine.InfoInLine.ButtonAttack.onClick.RemoveListener(_IelementsDamagePanel.HidePanel);
+            #endregion
+        }
+
+        private void Update()
+        {
+            if (_spawnPoint != null) 
+                ShowEnemyUI(_spawnPoint);
+
+            _playerAttackView.transform.position = GetScreenCoordinates(_playerRectTransform).center;
+        }
+
 
         public void Set(IPlayerPresenter playerPresenter, IEnemyPresenter enemyPresenter)
         {
+            FillElementsDamagePanel(playerPresenter);
+
             foreach (UnitAttackView unitAttackView in _enemyAttackViews)
                 unitAttackView.gameObject.SetActive(false);
 
@@ -51,11 +93,43 @@ namespace Assets.Fight
                 enemyAttackPresenters.Add(new UnitAttackPresenter(enemyPresenter.Enemy[i], _enemyAttackViews[i]));
 
             _fight = new Fight(this, enemyAttackPresenters, playerAttackPresenter, _stepFightView,
-                GetDicePresenterAdapter());
+                GetDicePresenterAdapter(), _IelementsDamagePanel);
 
             _fight.Start();
 
             #endregion
+        }
+
+        private void FillElementsDamagePanel(IPlayerPresenter playerPresenter)
+        {
+            IWeapon weapon = playerPresenter.Player.Weapon;
+
+            IElementsDamagePanel panel = _IelementsDamagePanel;
+            
+            panel.FireElementInfoLine.InfoInLine.Damage.text = weapon.Damage.ToString();
+            panel.FireElementInfoLine.InfoInLine.ChanceCriticalDamage.text = weapon.MinValueToCriticalDamage.ToString();
+            panel.FireElementInfoLine.InfoInLine.ChanceToSplash.text = weapon.ChanceToSplash.ToString();
+            panel.FireElementInfoLine.InfoInLine.ValueModifier.text = weapon.ValueModifier.ToString();
+            
+            panel.MetalElementInfoLine.InfoInLine.Damage.text = weapon.Damage.ToString();
+            panel.MetalElementInfoLine.InfoInLine.ChanceCriticalDamage.text = weapon.MinValueToCriticalDamage.ToString();
+            panel.MetalElementInfoLine.InfoInLine.ChanceToSplash.text = weapon.ChanceToSplash.ToString();
+            panel.MetalElementInfoLine.InfoInLine.ValueModifier.text = weapon.ValueModifier.ToString();
+
+            panel.StoneElementInfoLine.InfoInLine.Damage.text = weapon.Damage.ToString();
+            panel.StoneElementInfoLine.InfoInLine.ChanceCriticalDamage.text = weapon.MinValueToCriticalDamage.ToString();
+            panel.StoneElementInfoLine.InfoInLine.ChanceToSplash.text = weapon.ChanceToSplash.ToString();
+            panel.StoneElementInfoLine.InfoInLine.ValueModifier.text = weapon.ValueModifier.ToString();
+
+            panel.TreeElementInfoLine.InfoInLine.Damage.text = weapon.Damage.ToString();
+            panel.TreeElementInfoLine.InfoInLine.ChanceCriticalDamage.text = weapon.MinValueToCriticalDamage.ToString();
+            panel.TreeElementInfoLine.InfoInLine.ChanceToSplash.text = weapon.ChanceToSplash.ToString();
+            panel.TreeElementInfoLine.InfoInLine.ValueModifier.text = weapon.ValueModifier.ToString();
+
+            panel.WaterElementInfoLine.InfoInLine.Damage.text = weapon.Damage.ToString();
+            panel.WaterElementInfoLine.InfoInLine.ChanceCriticalDamage.text = weapon.MinValueToCriticalDamage.ToString();
+            panel.WaterElementInfoLine.InfoInLine.ChanceToSplash.text = weapon.ChanceToSplash.ToString();
+            panel.WaterElementInfoLine.InfoInLine.ValueModifier.text = weapon.ValueModifier.ToString();
         }
 
         private DicePresenterAdapter GetDicePresenterAdapter()
@@ -99,8 +173,6 @@ namespace Assets.Fight
             }
         }
 
-        private void OnDisable() =>
-            _fight.Dispose();
 
         private bool CheckOnTheBoss(Enemy.Enemy enemy)
         {
@@ -114,14 +186,6 @@ namespace Assets.Fight
             return false;
         }
 
-        private void Update()
-        {
-            ShowEnemyUI(_spawnPoint);
-            
-            RectTransform rectTransform = _playerPosition.GetComponent<RectTransform>();
-
-            _playerAttackView.transform.position = GetScreenCoordinates(rectTransform).center;
-        }
 
         private void ShowEnemyUI(EnemyPoint spawnPoint)
         {

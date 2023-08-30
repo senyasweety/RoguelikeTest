@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.InteractiveObjectSystem;
+using Assets.UI;
 using UnityEngine;
+using UnityEngine.UI;
 using AnimationClip = Assets.Scripts.AnimationComponent.AnimationClip;
 
 namespace Assets.Person
@@ -8,7 +12,17 @@ namespace Assets.Person
     [RequireComponent(typeof(SpriteRenderer))]
     public class UnitAttackView : MonoBehaviour
     {
-        [SerializeField] [Range(1, 30)] private int _frameRate = 10;
+        [SerializeField] private List<HealthBarView> _health;
+        [SerializeField] private Image _weaponElement;
+        [SerializeField] private Image _armorElement;
+
+        [Space] [SerializeField] private ElementsSpriteView _elementsSpriteView;
+
+        public ElementsSpriteView ElementsSpriteView => _elementsSpriteView;
+
+        #region MyRegion
+
+        private int _frameRate = 10;
         private List<Clip> _clips = new List<Clip>();
 
         public event Action OnAnimationComplete;
@@ -22,7 +36,14 @@ namespace Assets.Person
         private Sprite[] _sprites;
         private bool _isLoop;
         private Clip _currentClip;
+        private List<HealthBarView> _activeHealth;
+        private HealthBarView _currentHealthImage;
 
+        public List<HealthBarView> Health => _health;
+
+        public Image WeaponElement => _weaponElement;
+
+        public Image ArmorElement => _armorElement;
 
         private void Awake() =>
             _renderer = GetComponent<SpriteRenderer>();
@@ -30,9 +51,10 @@ namespace Assets.Person
         private void OnEnable()
         {
             _secPerFrame = 1f / _frameRate;
-
             StartAnimation();
             _nextFrameTime = Time.time + _secPerFrame;
+
+            GetActiveHealth();
         }
 
         private void Update()
@@ -92,6 +114,10 @@ namespace Assets.Person
         }
 
 
+        
+
+        #endregion
+
         public void FillDataForClips(IReadOnlyList<AnimationClip> spriteAnimationAnimationClips)
         {
             foreach (AnimationClip clip in spriteAnimationAnimationClips)
@@ -125,6 +151,26 @@ namespace Assets.Person
             public bool IsLoop { get; }
             public Assets.Scripts.AnimationComponent.AnimationState NextState { get; }
             public bool IsAllowNextClip { get; }
+        }
+
+        public void ChangeUIHealthValue(float value)
+        {
+            GetActiveHealth();
+            
+            if (_currentHealthImage.HealthBar.fillAmount != 0) 
+                _currentHealthImage.HealthBar.fillAmount -= value;
+            else
+            {
+                Debug.Log("_currentHealthImage пустой");
+                _currentHealthImage.gameObject.SetActive(false);
+            }
+            
+        }
+
+        private void GetActiveHealth()
+        {
+            _activeHealth = _health.Where(x => x.gameObject.activeSelf).ToList();
+            _currentHealthImage = _activeHealth[_activeHealth.Count - 1];
         }
     }
 }

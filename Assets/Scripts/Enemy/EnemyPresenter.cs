@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using Assets.DefendItems;
 using Assets.Fight.Element;
 using Assets.Interface;
 using Assets.Scripts.InteractiveObjectSystem;
 using Assets.Weapon;
-using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Enemy
 {
@@ -46,7 +47,7 @@ namespace Assets.Enemy
             }
         }
 
-        private Element GetRandomElement() => (Element)Random.Range(0, 5);
+        private Element GetRandomElement() => (Element)Random.Range(0, Enum.GetValues(typeof(Element)).Length);
 
         private Enemy GetEnemy()
         {
@@ -54,17 +55,22 @@ namespace Assets.Enemy
             WeaponFactory weaponFactory = new WeaponFactory();
             ArmorFactory armorFactory = new ArmorFactory();
 
-            IWeapon weapon = weaponFactory.Create(
-                _enemyView.Weapon.Damage, _enemyView.Weapon.Element, _enemyView.Weapon.ChanceToSplash,
-                _enemyView.Weapon.MinValueToCriticalDamage,
-                _enemyView.Weapon.ValueModifier, _enemyView.Weapon.ParticleSystem);
+            IWeapon weapon = CreateWeapon(weaponFactory);
 
-            Body body = new Body(_enemyView.Armor.BodyPart.Value, _enemyView.Armor.BodyPart.Element);
+            Body body = new Body(_enemyView.Armor.BodyPart.Value, GetRandomElement());
             Head head = new Head(_enemyView.Armor.HeadPart.Value);
 
             Armor armor = armorFactory.Create(body, head, _enemyView.Armor.ParticleSystem);
 
             return factory.Create(weapon, armor, _enemyView.Health, _enemyView.SpriteAnimation);
+        }
+
+        private IWeapon CreateWeapon(WeaponFactory weaponFactory)
+        {
+            return weaponFactory.Create(
+                _enemyView.Weapon.Damage, GetRandomElement(), _enemyView.Weapon.ChanceToSplash,
+                _enemyView.Weapon.MinValueToCriticalDamage,
+                _enemyView.Weapon.ValueModifier, _enemyView.Weapon.ParticleSystem);
         }
 
         private int GenerateRandomCountEnemy() =>

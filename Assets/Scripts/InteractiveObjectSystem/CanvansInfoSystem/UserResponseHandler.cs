@@ -32,6 +32,7 @@ namespace Assets.Scripts.InteractiveObjectSystem.CanvasInfoSystem
             // Первый вариант  _infoPanel.ShowPanel(selectedObject.Type, selectedObject.GetData());
             _infoPanel.ShowPanel(_selectedObject);
             _infoPanel.UserResponse += MoveFixedAgent;
+            _infoPanel.UserResponse2 += InfoPanelOnUserResponse2;
         }
 
         private void MoveFixedAgent(bool isPositiveResponse)

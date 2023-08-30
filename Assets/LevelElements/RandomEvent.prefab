@@ -94,6 +94,10 @@ MonoBehaviour:
   _type: 1
   _name: "\u0421\u043E\u0431\u044B\u0442\u0438\u0435"
   _data: "\u041B\u0438\u0431\u043E \u043B\u0443\u0442\n\u041B\u0438\u0431\u043E \u0441\u0440\u0430\u0436\u0435\u043D\u0438\u0435"
+  _interactiveLootObject: {fileID: 4629338079741327782, guid: 6e49fe142809441458d66afd2faf5f07, type: 3}
+  _enemyView:
+  - {fileID: 3573100240518443633, guid: 72e1711c436f52943bc638960d321a10, type: 3}
+  - {fileID: 831368143087915141, guid: 5d1fb88fa858cbf408f9eaebe78e8451, type: 3}
 --- !u!1 &2265099416935963788
 GameObject:
   m_ObjectHideFlags: 0

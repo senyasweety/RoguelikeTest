@@ -5,6 +5,7 @@ using System.Linq;
 using Assets.Fight.Dice;
 using Assets.Interface;
 using Assets.Person;
+using Assets.Utils;
 using UnityEngine;
 using AnimationState = Assets.Scripts.AnimationComponent.AnimationState;
 using Random = UnityEngine.Random;
@@ -18,22 +19,23 @@ namespace Assets.Fight
         private readonly UnitAttackPresenter _playerAttackPresenter;
         private readonly IStepFightView _stepFightView;
         private readonly DicePresenterAdapter _dicePresenterAdapter;
+        private readonly IElementsDamagePanel _elementsDamagePanel;
         private readonly Queue<UnitAttackPresenter> _unitsOfQueue;
+        
         private int _countSteps = 10;
         private Coroutine _coroutine;
-        private Coroutine _animationCoroutine;
-        private bool _isCompleteAnimation;
-        private bool _pressed = false;
 
         public Fight(ICoroutineRunner coroutineRunner, List<UnitAttackPresenter> enemyAttackPresenters,
             UnitAttackPresenter playerAttackPresenter, IStepFightView stepFightView,
-            DicePresenterAdapter dicePresenterAdapter)
+            DicePresenterAdapter dicePresenterAdapter, IElementsDamagePanel elementsDamagePanel)
         {
             _coroutineRunner = coroutineRunner;
             _enemyAttackPresenters = enemyAttackPresenters;
             _playerAttackPresenter = playerAttackPresenter;
             _stepFightView = stepFightView;
             _dicePresenterAdapter = dicePresenterAdapter;
+            _elementsDamagePanel = elementsDamagePanel;
+
             _unitsOfQueue = new Queue<UnitAttackPresenter>();
 
             SubscribeOnDieEnemies();
@@ -54,8 +56,10 @@ namespace Assets.Fight
 
         private IEnumerator AnimateAttackCoroutine()
         {
+            EnemyViewChooser enemyChooser = new EnemyViewChooser(_elementsDamagePanel);
             WaitUntil waitUntil = new WaitUntil(_dicePresenterAdapter.CheckOnDicesShuffeled);
-
+            WaitUntil untilChooseEnemy = new WaitUntil(enemyChooser.TryChooseEnemy);
+            
             _playerAttackPresenter.ShowAnimation(AnimationState.Idle);
 
             foreach (UnitAttackPresenter enemyAttackPresenter in _enemyAttackPresenters)
@@ -70,14 +74,23 @@ namespace Assets.Fight
 
                 if (unitAttackPresenter.Unit is Player.Player player)
                 {
+                    _dicePresenterAdapter.SetDisactive();
+
+                    yield return untilChooseEnemy;
+
                     _dicePresenterAdapter.SetActive();
                     yield return waitUntil;
+
                     _dicePresenterAdapter.RestartShuffelValue();
+
+                    #region Show enemy info in console
 
                     Debug.Log("Ходит игрок жизни врагов = ");
                     int i = 1;
                     foreach (UnitAttackPresenter unit in _enemyAttackPresenters)
                         Debug.Log($"{i} = {unit.Unit.Healh}");
+
+                    #endregion
 
                     bool isSplashAttack = _dicePresenterAdapter.LeftDiceValue == player.Weapon.ChanceToSplash;
 
@@ -118,8 +131,7 @@ namespace Assets.Fight
                         else
                             randomEnemy.ShowAnimation(AnimationState.Idle);
                     }
-
-
+                    
                     Debug.Log("Игрок походил жизни врагов = ");
                     int j = 1;
                     foreach (UnitAttackPresenter unit in _enemyAttackPresenters)
@@ -146,6 +158,8 @@ namespace Assets.Fight
 
                     Debug.Log($"Враг походил жизни игрока = {_playerAttackPresenter.Unit.Healh}");
                 }
+
+                yield return new WaitForSeconds(2);
             }
         }
 
